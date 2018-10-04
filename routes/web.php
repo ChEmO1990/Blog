@@ -4,6 +4,7 @@ use App\Post;
 use App\User;
 use App\Comment;
 use App\Follower;
+use App\Transformers\PostTransformer;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +35,6 @@ Route::get('/test', function() {
 	$post->save();
 	*/
 
-	$event = Post::with('comments', 'user', 'category')->first();
-	$event->toJson();
-
-	echo $event;
+	$posts = Post::with('comments', 'user', 'category')->get();
+	dd($posts);
 });

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Post;
 
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ApiController;
 
-class PostController extends Controller
+class PostController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +16,8 @@ class PostController extends Controller
     public function index()
     {
         //
+        $posts = Post::with('comments', 'user', 'category')->get();
+        return $this->showAll($posts);
     }
 
     /**
