@@ -4,7 +4,6 @@ namespace App\Transformers;
 
 use App\Post;
 use App\Comment;
-use App\Transformers\PostTransformer;
 use League\Fractal\TransformerAbstract;
 
 class PostTransformer extends TransformerAbstract
@@ -17,32 +16,31 @@ class PostTransformer extends TransformerAbstract
     public function transform(Post $post)
     {
         return [
-            'idddd'      => (int) $post->id,
-            'title'   => (string) $post->title,
-            'content' => (string) $post->content,
-            'status'  => (boolean) $post->status,
-            'comments'  => $post->comments,
-            'user'  => $post->user,
-            'category'  => $post->category,
+            'id'      => (int) $post->id,
+            'post_title'   => (string) $post->title,
+            'post_content' => (string) $post->content,
+            'post_status'  => (boolean) $post->status,
+            /*
+            'post_comments'  => $post->comments,
+            'post_author'  => $post->user,
+            'post_category'  => $post->category,
+            */
         ];
     }
 
     public static function originalAttribute($index) {
         $attributes = [
-            'posteeeeee_id' => 'id',
-            'post_title' => 'title',
-            'post_content' => 'content',
-            'post_status' => 'status',
-            'commentsss'  => 'comments',
-            'userrr'  => 'user',
-            'categoryyy'  => 'category',
+            'id' => 'id',
+            'title' => 'title',
+            'content' => 'content',
+            'status' => 'status',
+            /*
+            'comments'  => 'comments',
+            'user'  => 'user',
+            'category'  => 'category',
+            */
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;
-    }
-
-    public function includeComments(Post $post)
-    {
-        return $this->collection($post->comments, new PostTransformer);
     }
 }

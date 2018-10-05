@@ -18,7 +18,7 @@ class Post extends Model
         'id', 
         'title', 
         'content', 
-        'status'
+        'status',
     ];
 
     protected $hidden = [
@@ -35,6 +35,6 @@ class Post extends Model
     }
 
     public function comments() {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 }

@@ -17,4 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('posts', 'Api\Post\PostController', ['only' => ['index', 'show']]);
+Route::resource('posts', 'Api\Post\PostController', ['except' =>['create', 'edit']]);
+Route::resource('categories', 'Api\Category\CategoryController', ['except' =>['create', 'edit']]);

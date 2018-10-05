@@ -15,19 +15,8 @@ class PostController extends ApiController
      */
     public function index()
     {
-        //
-        $posts = Post::with('comments', 'user', 'category')->get();
+        $posts = Post::all();
         return $this->showAll($posts);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -38,7 +27,18 @@ class PostController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $rules = [ 
+            'user_id' => 'required', 
+            'category_id' => 'required', 
+            'title' => 'required',
+            'content' => 'required', 
+            'status' => 'boolean', 
+        ];
+
+        $this->validate($request, $rules);
+
+        $post = Post::create($request->all());
+        return $this->showOne($post, 201);
     }
 
     /**
@@ -49,18 +49,7 @@ class PostController extends ApiController
      */
     public function show(Post $post)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        //
+        return $this->showOne($post);
     }
 
     /**
@@ -72,7 +61,17 @@ class PostController extends ApiController
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->fill($request->intersect([
+            'user_id', 'category_id', 'title', 'content', 'status'
+        ]));
+
+        if( $post->isClean()) {
+            return $this->errorResponse('You must specify at least a different value to perform this request.', 422);
+        }
+
+        $post->save();
+        
+        return $this->showOne($post);
     }
 
     /**
@@ -83,6 +82,7 @@ class PostController extends ApiController
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return $this->showOne($post);
     }
 }

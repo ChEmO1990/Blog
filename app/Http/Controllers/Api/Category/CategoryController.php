@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Category;
 
-use App\Comment;
+use App\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ApiController;
 
-class CommentController extends Controller
+class CategoryController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -14,17 +15,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $categories = Category::all();
+        return $this->showAll($categories);
     }
 
     /**
@@ -35,27 +27,23 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [ 
+            'title' => 'required',
+        ];
+
+        $this->validate($request, $rules);
+
+        $post = Category::create($request->all());
+        return $this->showOne($post, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Comment $comment)
+    public function show(Category $post)
     {
         //
     }
@@ -64,10 +52,10 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, Category $post)
     {
         //
     }
@@ -75,10 +63,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Category $post)
     {
         //
     }
