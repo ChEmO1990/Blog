@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('posts', 'Api\Post\PostController', ['except' =>['create', 'edit']]);
 Route::resource('categories', 'Api\Category\CategoryController', ['except' =>['create', 'edit']]);
+Route::resource('comments', 'Api\Comment\CommentController', ['except' =>['create', 'edit']]);

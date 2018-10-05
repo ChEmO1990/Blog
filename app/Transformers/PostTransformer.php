@@ -3,7 +3,6 @@
 namespace App\Transformers;
 
 use App\Post;
-use App\Comment;
 use League\Fractal\TransformerAbstract;
 
 class PostTransformer extends TransformerAbstract
@@ -20,11 +19,8 @@ class PostTransformer extends TransformerAbstract
             'post_title'   => (string) $post->title,
             'post_content' => (string) $post->content,
             'post_status'  => (boolean) $post->status,
-            /*
-            'post_comments'  => $post->comments,
-            'post_author'  => $post->user,
-            'post_category'  => $post->category,
-            */
+            'author'  => $post->user,
+            'category'  => $post->category,
         ];
     }
 
@@ -34,11 +30,8 @@ class PostTransformer extends TransformerAbstract
             'title' => 'title',
             'content' => 'content',
             'status' => 'status',
-            /*
-            'comments'  => 'comments',
             'user'  => 'user',
             'category'  => 'category',
-            */
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;

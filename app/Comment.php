@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Transformers\CommentTransformer;
 
 class Comment extends Model
 {
+    public $transformer = CommentTransformer::class;
+
     protected $table = 'comments';
 
     protected $fillable = [
@@ -20,4 +23,8 @@ class Comment extends Model
         'created_at', 
         'updated_at',
     ];
+
+    public function likes() {
+        return $this->hasMany(Like::class, 'user_id', 'id');
+    }
 }

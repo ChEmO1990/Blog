@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Category;
+namespace App\Http\Controllers\Api\Comment;
 
-use App\Category;
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 
-class CategoryController extends ApiController
+class CommentController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class CategoryController extends ApiController
      */
     public function index()
     {
-        $categories = Category::all();
-        return $this->showAll($categories);
+        $comments = Comment::all();
+        return $this->showAll($comments);
     }
 
     /**
@@ -28,13 +28,16 @@ class CategoryController extends ApiController
     public function store(Request $request)
     {
         $rules = [ 
+            'user_id' => 'required', 
+            'post_id' => 'required', 
             'title' => 'required',
+            'content' => 'required', 
         ];
 
         $this->validate($request, $rules);
 
-        $post = Category::create($request->all());
-        return $this->showOne($post, 201);
+        $comment = Comment::create($request->all());
+        return $this->showOne($comment, 201);
     }
 
     /**
@@ -43,9 +46,9 @@ class CategoryController extends ApiController
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Comment $comment)
     {
-        return $this->showOne($category);
+        return $this->showOne($comment);
     }
 
     /**
@@ -55,17 +58,19 @@ class CategoryController extends ApiController
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Comment $comment)
     {
-        $category->fill($request->only(['title',]));
+        $comment->fill($request->intersect([
+            'user_id', 'post_id', 'title', 'content',
+        ]));
 
-        if( $category->isClean()) {
+        if( $comment->isClean()) {
             return $this->errorResponse('You must specify at least a different value to perform this request.', 422);
         }
 
-        $category->save();
+        $comment->save();
         
-        return $this->showOne($category);
+        return $this->showOne($comment);
     }
 
     /**
@@ -74,9 +79,9 @@ class CategoryController extends ApiController
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Comment $comment)
     {
-        $category->delete();
-        return $this->showOne($category);
+        $comment->delete();
+        return $this->showOne($comment);
     }
 }
