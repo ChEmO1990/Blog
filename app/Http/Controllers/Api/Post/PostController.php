@@ -85,4 +85,16 @@ class PostController extends ApiController
         $post->delete();
         return $this->showOne($post);
     }
+
+    public function get_comments($id) {
+        $post = Post::findOrFail($id);    
+        $comments = $post->comments;
+        return $this->showAll($comments);
+    }
+
+    public function get_likes($id) {
+        $post = Post::findOrFail($id);    
+        $likes = $post->likes;
+        return $this->showAll($likes);
+    }
 }

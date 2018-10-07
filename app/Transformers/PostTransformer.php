@@ -27,11 +27,11 @@ class PostTransformer extends TransformerAbstract
     public static function originalAttribute($index) {
         $attributes = [
             'id' => 'id',
-            'title' => 'title',
-            'body' => 'body',
-            'status' => 'status',
-            'user'  => 'user',
-            'category'  => 'category',
+            'post_title' => 'title',
+            'post_body' => 'body',
+            'post_status' => 'status',
+            'post_author'  => 'user',
+            'post_category'  => 'category',
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;

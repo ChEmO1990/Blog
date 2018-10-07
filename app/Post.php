@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Like;
 use App\User;
 use App\Comment;
 use App\Category;
@@ -36,5 +37,9 @@ class Post extends Model
 
     public function comments() {
         return $this->hasMany(Comment::class, 'user_id', 'id');
+    }
+
+    public function likes() {
+        return $this->hasMany(Like::class, 'post_id', 'id');
     }
 }

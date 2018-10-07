@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Category;
+namespace App\Http\Controllers\Api\Like;
 
-use App\Category;
+use App\Like;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 
-class CategoryController extends ApiController
+class LikeController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class CategoryController extends ApiController
      */
     public function index()
     {
-        $categories = Category::all();
-        return $this->showAll($categories);
+        $likes = Like::all();
+        return $this->showAll($likes);
     }
 
     /**
@@ -28,13 +28,14 @@ class CategoryController extends ApiController
     public function store(Request $request)
     {
         $rules = [ 
-            'title' => 'required',
+            'user_id' => 'required', 
+            'post_id' => 'required', 
         ];
 
         $this->validate($request, $rules);
 
-        $post = Category::create($request->all());
-        return $this->showOne($post, 201);
+        $like = Like::create($request->all());
+        return $this->showOne($like, 201);
     }
 
     /**
@@ -43,9 +44,9 @@ class CategoryController extends ApiController
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Like $like)
     {
-        return $this->showOne($category);
+        return $this->showOne($like);
     }
 
     /**
@@ -55,17 +56,19 @@ class CategoryController extends ApiController
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Like $like)
     {
-        $category->fill($request->only(['title',]));
+        $like->fill($request->intersect([
+            'user_id', 'post_id',
+        ]));
 
-        if( $category->isClean()) {
+        if( $like->isClean()) {
             return $this->errorResponse('You must specify at least a different value to perform this request.', 422);
         }
 
-        $category->save();
+        $like->save();
         
-        return $this->showOne($category);
+        return $this->showOne($like);
     }
 
     /**
@@ -74,15 +77,9 @@ class CategoryController extends ApiController
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Like $like)
     {
-        $category->delete();
-        return $this->showOne($category);
-    }
-
-    public function get_posts($id) {
-        $category = Category::findOrFail($id);    
-        $posts = $category->posts;
-        return $this->showAll($posts);
+        $like->delete();
+        return $this->showOne($like);
     }
 }

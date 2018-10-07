@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Post;
 use Illuminate\Database\Eloquent\Model;
 use App\Transformers\CategoryTransformer;
 
@@ -20,4 +21,8 @@ class Category extends Model
         'created_at', 
         'updated_at',
     ];
+
+    public function posts() {
+        return $this->hasMany(Post::class, 'category_id', 'id');
+    }
 }

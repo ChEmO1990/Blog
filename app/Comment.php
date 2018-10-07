@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Like;
 use Illuminate\Database\Eloquent\Model;
 use App\Transformers\CommentTransformer;
 
@@ -23,8 +24,4 @@ class Comment extends Model
         'created_at', 
         'updated_at',
     ];
-
-    public function likes() {
-        return $this->hasMany(Like::class, 'user_id', 'id');
-    }
 }

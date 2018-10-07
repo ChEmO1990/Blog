@@ -25,11 +25,11 @@ class CommentTransformer extends TransformerAbstract
 
     public static function originalAttribute($index) {
         $attributes = [
-            'id'      => 'id',
+            'comment_id'      => 'id',
             'user_id' => 'user_id',
             'post_id' => 'post_id',
-            'title'   => 'title',
-            'body' => 'body',
+            'comment_title'   => 'title',
+            'comment_body' => 'body',
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;

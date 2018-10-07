@@ -31,6 +31,6 @@ Route::get('/test', function() {
 	$post->save();
 	*/
 
-	$posts = Post::with('comments', 'user', 'category')->get();
-	dd($posts);
+	$comments = Comment::with('likes')->get();
+    echo $comments->toJson();
 });
