@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Transformers\FollowerTransformer;
 
 class Follower extends Model
 {
+    public $transformer = FollowerTransformer::class;
+
     protected $table = 'followers';
 
     protected $fillable = [

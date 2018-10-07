@@ -17,10 +17,10 @@ class PostTransformer extends TransformerAbstract
         return [
             'id'      => (int) $post->id,
             'post_title'   => (string) $post->title,
-            'post_content' => (string) $post->content,
+            'post_body' => (string) $post->body,
             'post_status'  => (boolean) $post->status,
-            'author'  => $post->user,
-            'category'  => $post->category,
+            'post_author'  => $post->user,
+            'post_category'  => $post->category,
         ];
     }
 
@@ -28,7 +28,7 @@ class PostTransformer extends TransformerAbstract
         $attributes = [
             'id' => 'id',
             'title' => 'title',
-            'content' => 'content',
+            'body' => 'body',
             'status' => 'status',
             'user'  => 'user',
             'category'  => 'category',

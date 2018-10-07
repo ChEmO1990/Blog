@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
 
             $table->string('title');
-            $table->string('content');
+            $table->string('body');
             $table->boolean('status');
             
             $table->timestamps();

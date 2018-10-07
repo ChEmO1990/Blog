@@ -38,7 +38,7 @@ $factory->define(App\Comment::class, function (Faker $faker) {
 		'user_id' => $faker->numberBetween(1,10),
 		'post_id' => $faker->numberBetween(1,10),
 		'title' => $faker->word,
-		'content' => $faker->paragraph(1),
+		'body' => $faker->paragraph(1),
 	];
 });
 
@@ -62,7 +62,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'user_id' => $faker->numberBetween(1,10),
         'category_id' => $faker->numberBetween(1,10),
         'title' => $faker->word,
-        'content' => $faker->paragraph(1),
+        'body' => $faker->paragraph(1),
         'status' => $faker->boolean($chanceOfGettingTrue = 50),
     ];
 });

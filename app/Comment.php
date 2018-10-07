@@ -16,7 +16,7 @@ class Comment extends Model
         'user_id', 
         'post_id', 
         'title', 
-        'content',
+        'body',
     ];
 
     protected $hidden = [

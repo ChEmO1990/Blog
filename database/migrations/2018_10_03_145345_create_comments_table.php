@@ -23,7 +23,7 @@ class CreateCommentsTable extends Migration
             $table->foreign('post_id')->references('id')->on('posts');
 
             $table->string('title');
-            $table->string('content');
+            $table->string('body');
 
             $table->timestamps();
         });

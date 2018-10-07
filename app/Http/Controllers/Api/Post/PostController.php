@@ -31,7 +31,7 @@ class PostController extends ApiController
             'user_id' => 'required', 
             'category_id' => 'required', 
             'title' => 'required',
-            'content' => 'required', 
+            'body' => 'required', 
             'status' => 'boolean', 
         ];
 
@@ -62,7 +62,7 @@ class PostController extends ApiController
     public function update(Request $request, Post $post)
     {
         $post->fill($request->intersect([
-            'user_id', 'category_id', 'title', 'content', 'status'
+            'user_id', 'category_id', 'title', 'body', 'status'
         ]));
 
         if( $post->isClean()) {

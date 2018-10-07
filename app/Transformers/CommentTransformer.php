@@ -15,11 +15,11 @@ class CommentTransformer extends TransformerAbstract
     public function transform(Comment $comment)
     {
         return [
-            'comment_id' => (int)    $comment->id,
-            'user_id'    => (int)    $comment->user_id,
-            'post_id'    => (int)    $comment->post_id,
-            'title'      => (string) $comment->title,
-            'content'    => (string) $comment->content,
+            'comment_id'    => (int)    $comment->id,
+            'user_id'       => (int)    $comment->user_id,
+            'post_id'       => (int)    $comment->post_id,
+            'comment_title' => (string) $comment->title,
+            'comment_body'  => (string) $comment->body,
         ];
     }
 
@@ -29,7 +29,7 @@ class CommentTransformer extends TransformerAbstract
             'user_id' => 'user_id',
             'post_id' => 'post_id',
             'title'   => 'title',
-            'content' => 'content',
+            'body' => 'body',
         ];
 
         return isset($attributes[$index]) ? $attributes[$index] : null;

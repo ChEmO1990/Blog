@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Comment;
+namespace App\Http\Controllers\Api\Follower;
 
-use App\Comment;
+use App\Follower;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 
-class CommentController extends ApiController
+class FollowerController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class CommentController extends ApiController
      */
     public function index()
     {
-        $comments = Comment::all();
-        return $this->showAll($comments);
+        $followers = Follower::all();
+        return $this->showAll($followers);
     }
 
     /**
@@ -28,16 +28,14 @@ class CommentController extends ApiController
     public function store(Request $request)
     {
         $rules = [ 
-            'user_id' => 'required', 
-            'post_id' => 'required', 
-            'title' => 'required',
-            'body' => 'required', 
+            'follower' => 'required', 
+            'following' => 'required', 
         ];
 
         $this->validate($request, $rules);
 
-        $comment = Comment::create($request->all());
-        return $this->showOne($comment, 201);
+        $follower = Follower::create($request->all());
+        return $this->showOne($follower, 201);
     }
 
     /**
@@ -46,9 +44,9 @@ class CommentController extends ApiController
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show(Follower $follower)
     {
-        return $this->showOne($comment);
+        return $this->showOne($follower);
     }
 
     /**
@@ -58,19 +56,19 @@ class CommentController extends ApiController
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, Follower $follower)
     {
-        $comment->fill($request->intersect([
-            'user_id', 'post_id', 'title', 'body',
+        $Follower->fill($request->intersect([
+            'follower', 'following',
         ]));
 
-        if( $comment->isClean()) {
+        if( $follower->isClean()) {
             return $this->errorResponse('You must specify at least a different value to perform this request.', 422);
         }
 
-        $comment->save();
+        $follower->save();
         
-        return $this->showOne($comment);
+        return $this->showOne($follower);
     }
 
     /**
@@ -79,9 +77,9 @@ class CommentController extends ApiController
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Follower $follower)
     {
-        $comment->delete();
-        return $this->showOne($comment);
+        $follower->delete();
+        return $this->showOne($follower);
     }
 }

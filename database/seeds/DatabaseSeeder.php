@@ -25,11 +25,11 @@ class DatabaseSeeder extends Seeder
     	Post::truncate();
 
         $numUsers = 10;
-    	$numCategories = 10;
+    	$numCategories = 100;
     	$numComments = 100;
     	$numFollowers = 100;
     	$numLikes = 100;
-    	$numPosts = 10;
+    	$numPosts = 100;
 
         factory(User::class, $numUsers)->create();
     	factory(Category::class, $numCategories)->create();
